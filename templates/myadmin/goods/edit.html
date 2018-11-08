@@ -1,0 +1,91 @@
+{% extends 'myadmin/index.html' %}
+{% block title %}
+<title>后台-货物编辑</title>
+{% endblock %}
+
+{% block con %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">货物编辑</div>
+                    <div class="widget-function am-fr">
+                        <a href="javascript:;" class="am-icon-cog"></a>
+                    </div>
+                </div>
+                <div class="widget-body am-fr">
+                    <form action="{% url 'myadmin_good_edit' goodlist.id %}" method="post" enctype="multipart/form-data" class="am-form tpl-form-line-form">
+                        {% csrf_token %}
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">所属分类</label>
+                            <div class="am-u-sm-9">
+                                <select name="pid" data-am-selected="{btnSize: 'sm'}">
+                                    {% load pagetag %}
+                                    {% for v in cateslist %}
+                                    <option  {% if v.pid == 0 %} disabled {% endif %} value="{{ v.id }}"><span>{% ind v.path %}</span>{{ v.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">ｔｉｔｌｅ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="title" value="{{ goodlist.title }}" class="tpl-form-input"  placeholder="请输入商品名">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">价格</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="price"  value="{{ goodlist.price }}" class="tpl-form-input"  placeholder="请输入价格">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">库存量</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="store"  value="{{ goodlist.store }}" class="tpl-form-input"  placeholder="请输入库存量">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">ｉｎｆｏ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="info"  value="{{ goodlist.info }}" class="tpl-form-input"  placeholder="请输入商品介绍">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">状态</label>
+                            <div class="am-u-sm-9">
+                                <select name="status" data-am-selected="{btnSize: 'sm'}">
+                                  <option value="0">新品</option>
+                                  <option value="1">热卖</option>
+                                  <option value="２">下架</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="user-weibo" class="am-u-sm-3 am-form-label">
+                                头像
+                            </label>
+                            <div class="am-u-sm-9">
+                                <div class="am-form-group am-form-file">
+                                    <div class="tpl-form-file-img">
+                                        <img src="{{ goodlist.pic_url }}" alt="" width="200"></div>
+                                    <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                        <i class="am-icon-cloud-upload"></i>修改图片</button>
+                                    <input name="pic_url" id="doc-form-file" type="file" multiple=""></div>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

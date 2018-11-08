@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>购物车-我的购物车</title>
+	<meta name="description" content="购物车，我的购物车">
+	<meta name="Keywords" content="魅族手机官网商城、魅族官方在线商店、魅族在线商城、魅族官网在线商店、魅族商城、魅蓝商城">
+	<link href="/static/myhome/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/myhome/img/favicon.ico" rel="icon" type="image/x-icon">
+	<!-- Bootstrap -->
+	<link href="/static/myhome/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/static/myhome/js/jquery-1.12.4.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/static/myhome/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/global.css">
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/app.css">
+
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/cart.css">
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/cart-app.css">
+
+	<script type="text/javascript" src="/static/myhome/js/rem.js"></script>
+	<script type="text/javascript" src="/static/myhome/js/topNav.js"></script>
+</head>
+
+<body class="cart-app">
+    <!-- 导航 -->
+    <div class="layout-header" id="scroll-wrap">
+		<nav class="navbar navbar-default header hidden-xs hidden-sm">
+			<div class="container clearfix">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="layout-header-logo navbar-left">
+						<a target="_blank" href="./index.html" class="layout-header-logo-link" alt="魅族科技">
+							<img src="/static/myhome/img/logo.png">
+						</a>
+					</div>
+					<div class="navbar-left">
+						<ol class="breadcrumb">
+							<li class="active">购物车</li>
+							<li>确认订单</li>
+							<li>在线支付</li>
+							<li>完成 </li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- 移动端结构 -->
+		<div class="scroll-view">
+			<header id="header" class="header">
+				<div class="logo">
+					<a href="./index.html">
+					  <img src="/static/myhome/img/app/mlogo1.jpg">
+					</a>
+				</div>
+				<div class="qtool">
+					<a id="btn-search">
+					  <i class="glyphicon  glyphicon-search"></i>
+					</a>
+					<a href="#">
+					  <i class="glyphicon  glyphicon-shopping-cart"></i>
+					</a>
+					<a id="user-name" href="#">
+					  <i class="glyphicon glyphicon-user"></i>
+					</a>
+				</div>
+			</header>
+		</div>
+    </div>
+    <!-- 导航 E-->
+    <!-- 主内容区域 -->
+    <div class="mainbody cart">
+		<div class="container">
+			<!-- 购物车详情头 -->
+			<table class="cart-header">
+				<tbody>
+					<tr>
+						<td class="cart-col-select col-md-1 col-xs-3 col-sm-3">
+							<div class="cart-select-all JSelectAll">
+								<input class="mz-checkbox allcheck" type="checkbox" name="" id = "allcheck" value="" onclick="style = checked">
+								<span class="cart-select-title">全选</span>
+							</div>
+						</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">编号</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">商品</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">详情</td>
+						<td class="cart-col-price col-md-1 hidden-xs hidden-sm">单价(元)</td>
+						<td class="cart-col-number col-md-1 hidden-xs hidden-sm">数量</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">小计(元)</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">操作</td>
+					</tr>
+				</tbody>
+			</table><!-- 购物车详情头 E-->
+
+			<!-- 购物清单信息列表 -->
+			<div class="cart-merchant-list">
+				<div class="cart-merchant">
+					<table class="cart-merchant-body">
+						<tbody>
+							{% for i in cart %}
+							<tr class="cart-product" id="pro5">
+								<td class="cart-col-select col-md-1 col-xs-4 col-sm-4">
+									<input class="mz-checkbox onecheck" type="checkbox" id = "onecheck" name="" value="">
+									<a href="meilanx.html" class="cart-product-link" target="_blank"></a>
+								</td>
+								<td class="cart-col-select col-md-1 col-xs-4 col-sm-4">
+									<span>{{ i.goodsid.id }}</span>
+								</td>
+								<td class="cart-col-select col-md-2 col-xs-4 col-sm-4">
+									<a href="meilanx.html" class="cart-product-link" target="_blank">
+										<img src="{{ i.goodsid.pic_url }}" class="cart-product-img" alt="魅蓝 X">
+									</a>
+								</td>
+								<td class="cart-col-name col-md-1 col-xs-8 col-sm-8">
+									<a href="meilanx.html" class="cart-product-link" target="_blank">
+									  <p>{{ i.goodsid.title }}</p>
+									  <span class="cart-product-desc">{{ i.goodsid.info }}</span>
+									</a>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+									<p>
+										<span class="cart-product-price">{{ i.goodsid.price }}</span>
+									</p>
+								</td>
+								<td class="cart-col-number col-md-1 hidden-xs hidden-sm">
+									<div class="cart-product-number-adder">
+										<p class="cart-product-number-max show"></p>
+										<div class="mz-adder">
+											<button class="mz-adder-subtract"></button>
+											<div class="mz-adder-num"><input class="mz-adder-input number" value="{{ i.num }}" type="text"></div>
+											<button class="mz-adder-add"></button>
+										</div>
+									</div>
+								</td>
+								<td class="cart-col-total col-md-1 hidden-xs hidden-sm">
+									<span class="cart-product-price total">{%  widthratio i.goodsid.price 1 i.num  %}</span>
+								</td>
+								<td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">
+									<div class="cart-product-remove">
+										<span class="glyphicon glyphicon-remove"></span>
+									</div>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div><!-- 购物清单信息列表
+		</div>
+		<!-- 结算详情 -->
+		<div class="cart-footer" id="cartFooter">
+			<div class="container">
+			   <div class="cart-footer-left col-md-6 col-xs-4 col-sm-4">
+				   <!-- <div class="cart-select-all JSelectAll">
+					   <input class="mz-checkbox" type="checkbox" name="" id = "nocheck" value="" onclick="style = checked">
+					   <span class="cart-select-title">全不选</span>
+				   </div> -->
+				   <div class="cart-select-all JSelectAll">
+					   <input class="mz-checkbox" type="checkbox" name="" id = "fancheck" value="" onclick="style = checked">
+					   <span class="cart-select-title">反选</span>
+				   </div>
+				   <!-- <span class="cart-remove-selected" id="removeSelected">删除选中的商品</span> -->
+				   <span class="cart-footer-count">
+						共
+						<span class="cart-footer-num" id="totalCount"></span>
+						件商品
+				   </span>
+				</div>
+				<div class="cart-footer-right col-md-5 col-md-offset-1 col-sm-offset-2 col-xs-8 col-sm-6">
+					<span class="cart-footer-sum">
+						<span class="cart-footer-text">已优惠</span>
+						<span class="cart-footer-num red" id="totalDiscount">0.00</span>
+						<span class="cart-footer-text">元， 合计(不含运费)：</span>
+						<span class="cart-footer-total" id="totalPrice"></span>
+					</span>
+
+				</div>
+				<div class="mz-btn success" id="cartSubmit"><a href="#" id="submit">提交订单</a></div>
+				<div class="mz-btn success" ><a href="{% url "myhome_list" %}" id="changenum">继续购买</a></div>
+				<div class="mz-btn success" ><a href="{% url "myhome_index" %}" id="changenum">返回首页</a></div>
+
+			</div>
+		</div><!-- 结算详情 E-->
+	</div>
+    <!-- 主内容区域 E-->
+
+</body>
+
+<script type="text/javascript">
+
+
+    // 输入框
+	$('.mz-adder-input').blur(function(){
+		var num = parseInt($(this).parent().find('input').val())
+		var id = $(this).parents('td').prev().prev().prev().prev().text()
+		var th = $(this)
+		if(num < 1){
+			alert('输入数量应该大于 0 ！')
+			$(this).val(1)
+		}
+		else{
+			$(this).val(num)
+		}
+		ComputerNumAndPrice()
+		// 发送ajax请求
+		$.get('{% url "myhome_countprice" %}',{'num':num,'id': id},function(data){
+			th.parents('td').next().find('span').text(data['countprice'])
+		},'json')
+	})
+    // 加
+	$('.mz-adder-add').click(function(){
+		var num = parseInt($(this).parent().find('input').val()) + 1
+		var id = $(this).parents('td').prev().prev().prev().prev().text()
+		$(this).prev().find('input').val(num)
+		var th = $(this)
+		ComputerNumAndPrice()
+		// 发送ajax请求
+		$.get('{% url "myhome_countprice" %}',{'num':num,'id': id},function(data){
+			th.parents('td').next().find('span').text(data['countprice'])
+		},'json')
+	})
+    // 减
+	$('.mz-adder-subtract').click(function(){
+		var num = parseInt($(this).parent().find('input').val())
+		var id = $(this).parents('td').prev().prev().prev().prev().text()
+		var th = $(this)
+
+		if(num <= 1 ){
+			$(this).next().find('input').val(1)
+		}
+		else{
+			$(this).next().find('input').val(num - 1)
+			// ComputerNumAndPrice()
+			// 发送ajax请求
+			$.get('{% url "myhome_countprice" %}',{'num':num - 1,'id': id},function(data){
+				th.parents('td').next().find('span').text(data['countprice'])
+			},'json')
+		}
+
+	})
+    // 复选框 全选
+	$('.allcheck').click(function(){
+		$('.onecheck').prop('checked', $(this).prop('checked'))
+		ComputerNumAndPrice()
+	})
+
+	$('.onecheck').click(function(){
+	        ComputerNumAndPrice()
+	   })
+
+   	function ComputerNumAndPrice(){
+        var TotalPrice = 0
+        var TotalNum = 0
+		var cartids = []
+		// alert(TotalPrice)
+        // 获取页面中所以已经选中的元素
+        $('.onecheck').each(function(){
+            var res = $(this).prop('checked')
+            if(res){
+                // 获取当前元素的 小计价格 和数量
+                TotalPrice += Number($(this).parents('tr').find('.total').text())
+                TotalNum += Number($(this).parents('tr').find('.number').val())
+				cartids.push($(this).parent().next().find('span').text())
+            }
+        })
+
+        $('#totalCount').text(TotalNum)
+        $('#totalPrice').text(TotalPrice.toFixed(2))
+		return cartids
+   	}
+
+	$('#submit').click(function(){
+		cartids = ComputerNumAndPrice()
+		nums = []
+		// 判断是否选择了商品
+        if(!cartids.length){
+            // 没有选择商品
+            alert('请注意如果没有选择宝贝，将无法结算');
+            return;
+        }
+		$('.onecheck').each(function(){
+            var res = $(this).prop('checked')
+            if(res){
+                nums.push(($(this).parents('tr').find('.number').val()))
+            }
+        })
+        // 把数组转为json格式字符串,
+        var res = JSON.stringify( cartids );
+		var num = JSON.stringify( nums );
+
+		var totalPrice = $('#totalPrice').text()
+        location.href="{% url 'myhome_order' %}?cartids="+res + "&nums=" + num + "&totalPrice=" + totalPrice
+	})
+
+	$('#changenum').click(function(){
+
+	})
+
+</script>
+</html>

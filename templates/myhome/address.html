@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>地址列表</title>
+	<meta name="description" content="购物车，我的购物车">
+	<meta name="Keywords" content="魅族手机官网商城、魅族官方在线商店、魅族在线商城、魅族官网在线商店、魅族商城、魅蓝商城">
+	<link href="/static/myhome/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/myhome/img/favicon.ico" rel="icon" type="image/x-icon">
+	<!-- Bootstrap -->
+	<link href="/static/myhome/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/static/myhome/js/jquery-1.12.4.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/static/myhome/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/global.css">
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/app.css">
+
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/cart.css">
+	<link rel="stylesheet" type="text/css" href="/static/myhome/css/cart-app.css">
+
+	<script type="text/javascript" src="/static/myhome/js/rem.js"></script>
+	<script type="text/javascript" src="/static/myhome/js/topNav.js"></script>
+</head>
+
+<body class="cart-app">
+    <!-- 导航 -->
+    <div class="layout-header" id="scroll-wrap">
+		<nav class="navbar navbar-default header hidden-xs hidden-sm">
+			<div class="container clearfix">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="layout-header-logo navbar-left">
+						<a target="_blank" href="./index.html" class="layout-header-logo-link" alt="魅族科技">
+							<img src="/static/myhome/img/logo.png">
+						</a>
+					</div>
+					<div class="navbar-left">
+						<ol class="breadcrumb">
+							<li class="active">购物车</li>
+							<li>确认订单</li>
+							<li>在线支付</li>
+							<li>完成 </li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</nav>
+    </div>
+    <!-- 导航 E-->
+    <!-- 主内容区域 -->
+    <div class="mainbody cart">
+		<div class="container">
+			<!-- 购物车详情头 -->
+			<table class="cart-header">
+				<tbody>
+					<tr>
+						<td class="cart-col-select col-md-1 col-xs-3 col-sm-3">
+							<div class="cart-select-all JSelectAll">
+								<!-- <input class="mz-checkbox allcheck" type="checkbox" name="" id = "allcheck" value="" onclick="style = checked"> -->
+								<span class="cart-select-title">默认地址</span>
+							</div>
+						</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">编号</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">收货人</td>
+						<td class="cart-col-name col-md-1 hidden-xs hidden-sm">电话</td>
+						<td class="cart-col-price col-md-1 hidden-xs hidden-sm">省</td>
+						<td class="cart-col-number col-md-1 hidden-xs hidden-sm">市</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">县</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">信息</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">默认</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">操作</td>
+					</tr>
+				</tbody>
+			</table><!-- 购物车详情头 E-->
+
+			<!-- 购物清单信息列表 -->
+			<div class="cart-merchant-list">
+				<div class="cart-merchant">
+					<table class="cart-merchant-body">
+						<tbody>
+							{% for i in addinfo %}
+							<tr class="cart-product" id="pro5">
+								<td class="cart-col-select col-md-1 col-xs-4 col-sm-4">
+									<input class="mz-checkbox onecheck" type="checkbox" {% if isChecked %} 'checked' {% endif %}>
+									<a href="#" class="cart-product-link" target="_blank"></a>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.id }}</span>
+								</td>
+								
+								<td class="cart-col-select col-md-1 col-xs-4 col-sm-4">
+									<span>{{ i.shr }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.shdh }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.sheng }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.shi }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.xian }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.info }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span >{{ i.isChecked }}</span>
+								</td>
+								<td class="cart-col-price col-md-1 hidden-xs hidden-sm">
+										<span > <a href="#">修改</a> </span>
+										<span > <a href="{% url 'myhome_address_delete' %}?id={{ i.id }}">删除</a> </span>
+								</td>
+
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div><!-- 购物清单信息列表
+		</div>
+		<!-- 结算详情 -->
+		<div class="cart-footer" id="cartFooter">
+			<div class="container">
+				<!-- <div class="mz-btn success" id="cartSubmit"><a  id="submit">确认修改</a></div> -->
+				<div class="mz-btn success" ><a href="{% url 'myhome_add_address' %}" >添加地址</a></div>
+				<div class="mz-btn success" ><a href="{% url 'myhome_list' %}" >继续购物</a></div>
+				<div class="mz-btn success" ><a href="{% url 'myhome_index' %}" >返回首页</a></div>
+				<div class="mz-btn success" ><a href="{% url 'myhome_address' %}" id="moren">设置为默认</a></div>
+
+		</div><!-- 结算详情 E-->
+	</div>
+    <!-- 主内容区域 E-->
+
+</body>
+
+<script type="text/javascript">
+	$('.onecheck').click(function(){
+		var one = $(this)
+	  	// 将所有的的按钮不选中
+		$('.onecheck').each(function(){
+            if($(this).prop('checked')){
+				$(this).prop("checked",false)
+            }
+        })
+		one.prop('checked',true)
+		// one.parents.find('td').last().prev().find('span').text('true')
+		id = one.parent().next().find('span').text()
+		$.get("{% url 'myhome_set_def_address' %}",{'id': id}, function(data){
+			// alert(data)
+			// $('.onecheck').parents().find('td').last().prev().find('span').text('False')
+			// one.parents().find('td').last().prev().find('span').text('True')
+		}, 'json')
+	})
+
+
+</script>
+</html>

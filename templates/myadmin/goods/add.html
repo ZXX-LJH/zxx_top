@@ -1,0 +1,91 @@
+{% extends 'myadmin/index.html' %}
+
+{% block title %}
+<title>后台-商品标签添加</title>
+{% endblock %}
+
+{% block con %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">标签添加</div>
+                    <div class="widget-function am-fr">
+                        <a href="javascript:;" class="am-icon-cog"></a>
+                    </div>
+                </div>
+                <div class="widget-body am-fr">
+                    <form action="{% url 'myadmin_good_add' %}" method="post" enctype="multipart/form-data" class="am-form tpl-form-line-form">
+                        {% csrf_token %}
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">ｔｉｔｌｅ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="title" class="tpl-form-input"  placeholder="请输入ｔｉｔｌｅ">
+                            </div>
+                        </div>
+                        <!-- <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">标签ＩＤ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="cateid" class="tpl-form-input"  placeholder="请输入标签ｉｄ">
+                            </div>
+                        </div> -->
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">所属分类</label>
+                            <div class="am-u-sm-9">
+                                <select name="cateid" data-am-selected="{btnSize: 'sm'}">
+                                    {% load pagetag %}
+                                    {% for v in cateslist %}
+                                    <option  {% if v.pid == 0 %} disabled {% endif %} value="{{ v.id }}"><span>{% ind v.path %}</span>{{ v.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">价格</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="price" class="tpl-form-input"  placeholder="请输入ｐｒｉｃｅ">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">ｓｔｏｒｅ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="store" class="tpl-form-input"  placeholder="请输入ｓｔｏｒｅ">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">商品介绍</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="info" class="tpl-form-input"  placeholder="请输入介绍">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">图片地址</label>
+                            <div class="am-u-sm-9">
+                                <input type="file" name="pic_url" class="tpl-form-input"  placeholder="请输入图片地址">
+                            </div>
+                        </div>
+                        <!-- <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">分类</label>
+                            <div class="am-u-sm-9">
+                                <select name="status" data-am-selected="{btnSize: 'sm'}">
+                                    <option value="0">新品</option>
+                                    <option value="１">热卖</option>
+                                    <option value="２">下架</option>
+                                </select>
+                            </div>
+                        </div> -->
+
+
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

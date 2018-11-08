@@ -1,0 +1,74 @@
+工作流程：
+第一天：
+
+
+
+
+
+
+
+
+
+
+
+第二天：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+第三天：
+	１．设计商品分类模型
+		ｍｏｄｅｌｓ．ｐｙ
+		class Cates(models.Mode):
+			name = models.CharField(max_lenght=50)
+			pid = models.IntegerField()
+			path = models.CharFiled(max_lenght = 20)
+			isDelete = models.BooleanField(default=False)
+			# id	name 	pid		path
+			# 1 	服装		０		０，
+			# 2 	男装		１		０，１，
+			# 3		西服 	２		０，１，２，
+			# 4 	女装		１		０，１，
+			# 5		裙子		４		０，１，４，
+			# 6		超短裙	５		０，１，４，５，
+
+	2. 将视图函数进行分类
+		ｖｉｅｗｓ｜
+			----viewsIndex.py
+			----viewsUsers.py
+			----viewsCates.py
+			----viewsGoods.py
+
+	3. 增加ｃａｔｅ
+		cate |
+			index.html
+			edit.html
+			add.html
+
+			# 将父类的 id 作为 子类的 pid
+			<form action="{% url 'myadmin_cate_add' %}" method="post"  class="am-form tpl-form-line-form">
+        {% csrf_token %}
+            <select name="pid" data-am-selected="{btnSize: 'sm'}">
+                <option value="0">顶级分类</option>
+                {% for i in cateslist %} #
+                <option value="{{ i.id }}"><span>{{ i.name }}</span></option>
+                {% endfor %}
+            </select>
+            <input type="text" name="cate" class="tpl-form-input"  placeholder="请输入标签">
+            <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button></div>
+        </div>
+      </form>

@@ -1,0 +1,150 @@
+{% extends 'myadmin/index.html' %}
+
+{% block title %}
+<title>后台-商品标签添加</title>
+{% endblock %}
+
+{% block con %}
+<!-- 内容区域 -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title  am-cf">文章列表</div>
+                    </div>
+                    <div class="widget-body  am-fr">
+                        <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                            <div class="am-form-group">
+                                <div class="am-btn-toolbar">
+                                    <div class="am-btn-group am-btn-group-xs">
+                                        <a href="{% url 'myadmin_cate_add' %}" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
+                                        <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form >
+                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                                <div class="am-form-group tpl-table-list-select">
+                                    <select name = 'types' data-am-selected="{btnSize: 'sm'}">
+                                      <option value="all">全部</option>
+                                      <option value="name">标签名</option>
+                                      <option value="pid">PID</option>
+                                      <option value="path">路径</option>
+                                      <option value="isDelete">状态</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                <input name = 'keyword' type="text" class="am-form-field ">
+                                <span class="am-input-group-btn">
+                                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" ></button>
+                                  </span>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="am-u-sm-12">
+                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>标签</th>
+                                        <th>Ｐｉｄ</th>
+                                        <th>层级</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% load pagetag %}
+                                    {% for v in cateslist %}
+                                    <tr>
+                                        <td>{{ v.id }}</td>
+                                        <td class="am-text-middle editname">
+                                            <span>{% ind v.path %}</span>
+                                            <span class = 'name'>{{ v.name }}</span>
+                                        </td>
+                                        <td class="am-text-middle">{{ v.pid }}</td>
+                                        <td class="am-text-middle">{{ v.path }}</td>
+                                        <td class="am-text-middle">
+                                            {% if v.isdelete == True %}
+                                                删除
+                                            {% elif v.isDelete == False %}
+                                                正常
+                                            {% endif %}
+                                        </td>
+                                        <td class="am-text-middle">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="{% url 'myadmin_cate_edit' v.id %}">
+                                                    <i class="am-icon-pencil"></i> 编辑
+                                                </a>
+
+                                                <a href="{% url 'myadmin_cate_delete' v.id %}" class="tpl-table-black-operation-del">
+                                                    <i class="am-icon-trash"></i> 删除
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="am-u-lg-12 am-cf">
+                            <div class="am-fr">
+                                <ul class="am-pagination tpl-pagination">
+                                    <li class="am-disabled"><a href="#"> << </a></li>
+                                    {% load pagetag %}
+                                    {% pageshow cateslist.paginator.num_pages request %}
+                                   <li class="am-disabled"><a href="#"> >> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<script type="text/javascript">
+//    alert('ajax')
+    // 给td绑定双击事件,进行修改
+    $('tbody .editname').dblclick(function(){
+        // 获取当前的分类名
+        var name = $(this).find('.name').text()
+        var cid = $(this).prev().text()
+        // 动态创建input,放到name的位置
+        var inp = $('<input value="'+name+'" style="color:black;">')
+        $(this).find('.name').html(inp)
+        inp.select()
+        var t = $(this)
+
+        // 给input绑定丧失焦点事件
+        inp.blur(function(){
+            // 获取当前input中修改的值
+            var xname = $(this).val()
+            // 判断新的值和原来的值是否一致
+            if(xname == name){
+                // 恢复原样
+                t.find('.name').html(name)
+            }else{
+                // 发送ajax请求去修改
+                // console.log(xname,cid)
+                $.get('{% url "myadmin_cates_edit" %}',{'cid':cid,'name':xname},function(data){
+                    // 恢复原样
+                    t.find('.name').html(xname)
+                    alert(data['msg'])
+                },'json')
+            }
+        })
+    })
+
+
+</script>
